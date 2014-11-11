@@ -44,7 +44,7 @@ public class MyActivity extends Activity {
                     todo.setText("");
                     adapter.notifyDataSetChanged();
                 }
-               //else Toast.makeText(getApplicationContext(), "Введите текст", Toast.LENGTH_SHORT).show();
+               else Toast.makeText(getApplicationContext(), "Введите текст", Toast.LENGTH_SHORT).show();
             }
         });
 
