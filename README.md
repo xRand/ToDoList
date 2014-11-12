@@ -1,4 +1,4 @@
 ToDoList
 ========
 
-My first project for Android 
+My first Android app 
