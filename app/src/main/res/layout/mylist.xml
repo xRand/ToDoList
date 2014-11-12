@@ -8,8 +8,9 @@
     <CheckBox
         android:id="@+id/check"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1">
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:focusable="false">
     </CheckBox>
 
     <LinearLayout
@@ -19,9 +20,10 @@
         android:layout_weight="5">
         <TextView
             android:id="@+id/todo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="New Text"
+            android:focusable="false">
         </TextView>
         <LinearLayout
             android:orientation="horizontal"
@@ -35,7 +37,8 @@
                 android:id="@+id/created"
                 android:gravity="right"
                 android:layout_weight="3.5"
-                android:textSize="12dp" />
+                android:textSize="12dp"
+                android:focusable="false"/>
 
             <TextView
                 android:layout_width="0dp"
@@ -44,7 +47,8 @@
                 android:id="@+id/done"
                 android:gravity="right"
                 android:layout_weight="1.5"
-                android:textSize="12dp" />
+                android:textSize="12dp"
+                android:focusable="false"/>
         </LinearLayout>
     </LinearLayout>
 
@@ -54,7 +58,7 @@
         android:layout_height="wrap_content"
         android:background="@android:drawable/ic_menu_delete"
         android:layout_weight="1"
-        android:gravity="right">
+        android:focusable="false">
     </Button>
 </LinearLayout>
 

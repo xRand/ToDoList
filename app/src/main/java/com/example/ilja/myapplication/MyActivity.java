@@ -3,9 +3,11 @@ package com.example.ilja.myapplication;
 import android.app.Activity;
 import android.os.Bundle;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -31,6 +33,13 @@ public class MyActivity extends Activity {
         ListView listView = (ListView) findViewById(R.id.listView);
         listView.setAdapter(adapter);
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Toast.makeText(MyActivity.this, ""+i, Toast.LENGTH_SHORT).show();
+            }
+        });
+
         //добавление
         Button btnAdd = (Button) findViewById(R.id.button);
         btnAdd.setOnClickListener(new View.OnClickListener() {
@@ -47,6 +56,7 @@ public class MyActivity extends Activity {
                else Toast.makeText(getApplicationContext(), "Введите текст", Toast.LENGTH_SHORT).show();
             }
         });
+
 
     }
 

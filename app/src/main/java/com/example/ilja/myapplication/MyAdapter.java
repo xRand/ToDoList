@@ -55,7 +55,6 @@ public class MyAdapter extends BaseAdapter  {
         }
 
         ListItems p = list.get(position);
-        // заполняем View
 
         ((TextView) view.findViewById(R.id.todo)).setText(p.todo);
         ((TextView) view.findViewById(R.id.created)).setText(p.created);
@@ -64,6 +63,8 @@ public class MyAdapter extends BaseAdapter  {
         CheckBox check = (CheckBox) view.findViewById(R.id.check);
         check.setOnCheckedChangeListener(myCheck);
         check.setTag(position);
+        check.setChecked(p.box);
+
 
         Button btnDel = (Button) view.findViewById(R.id.del);
         btnDel.setOnClickListener(myDel);
@@ -73,17 +74,19 @@ public class MyAdapter extends BaseAdapter  {
         return view;
     }
 
+
     //чекбоксы
     CompoundButton.OnCheckedChangeListener myCheck = new CompoundButton.OnCheckedChangeListener() {
         @Override
         public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
             int pos = (Integer) compoundButton.getTag();
             String done = "";
-
             if(b) done = (String) DateFormat.format("dd.MM.yyyy", new Date());
+
 
             ListItems item = new ListItems (b, list.get(pos).todo, list.get(pos).created, done);
             list.set(pos, item);
+
 
             notifyDataSetChanged();
         }
