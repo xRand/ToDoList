@@ -1,6 +1,7 @@
 package com.example.ilja.myapplication;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.util.Log;
@@ -14,24 +15,28 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
+
 import java.util.ArrayList;
 import java.util.Date;
 
 
 public class MyActivity extends Activity {
 
+    ArrayList<ListItems> list = new ArrayList<ListItems>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my);
 
-
-        final ArrayList<ListItems> list = new ArrayList<ListItems>();
         final MyAdapter adapter = new MyAdapter(this, list);
-
         ListView listView = (ListView) findViewById(R.id.listView);
         listView.setAdapter(adapter);
+
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -57,9 +62,39 @@ public class MyActivity extends Activity {
             }
         });
 
-
+        loadList();
     }
 
+    void saveList() {
+        SharedPreferences pref = getSharedPreferences("MyPref", MODE_PRIVATE);
+        SharedPreferences.Editor ed = pref.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(list);
+        ed.putString("MyList", json);
+        ed.commit();
+
+        Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show();
+    }
+
+    void loadList() {
+        SharedPreferences pref = getSharedPreferences("MyPref", MODE_PRIVATE);
+        String json = pref.getString("MyList", "");
+        if(json.isEmpty() == false) {
+            Gson gson = new Gson();
+            JsonParser parser = new JsonParser();
+            JsonArray array = parser.parse(json).getAsJsonArray();
+            for (JsonElement element : array) {
+                ListItems it = gson.fromJson(element, ListItems.class);
+                list.add(it);
+            }
+        }
+    }
+
+    @Override
+    protected void onPause(){
+        saveList();
+        super.onPause();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
