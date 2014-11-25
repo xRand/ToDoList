@@ -1,10 +1,10 @@
 package com.example.ilja.myapplication;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,21 +27,26 @@ import java.util.Date;
 public class MyActivity extends Activity {
 
     ArrayList<ListItems> list = new ArrayList<ListItems>();
+    MyAdapter adapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my);
 
-        final MyAdapter adapter = new MyAdapter(this, list);
-        ListView listView = (ListView) findViewById(R.id.listView);
+        adapter = new MyAdapter(this, list);
+        final ListView listView = (ListView) findViewById(R.id.listView);
         listView.setAdapter(adapter);
 
-
+        //запуск второго активити
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(MyActivity.this, ""+i, Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MyActivity.this, DetailsActivity.class);
+                intent.putExtra("id", i);
+                intent.putExtra("details", list.get(i).todo);
+                startActivityForResult(intent, 0);
             }
         });
 
@@ -63,8 +68,20 @@ public class MyActivity extends Activity {
         });
 
         loadList();
+
     }
 
+    //
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        if (data == null) return;
+        super.onActivityResult(requestCode, resultCode, data);
+        list.remove(data.getIntExtra("id", 0));
+        adapter.notifyDataSetChanged();
+    }
+
+    //сохраняем данные
     void saveList() {
         SharedPreferences pref = getSharedPreferences("MyPref", MODE_PRIVATE);
         SharedPreferences.Editor ed = pref.edit();
@@ -75,7 +92,7 @@ public class MyActivity extends Activity {
 
         Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show();
     }
-
+    //загружаем данные
     void loadList() {
         SharedPreferences pref = getSharedPreferences("MyPref", MODE_PRIVATE);
         String json = pref.getString("MyList", "");
