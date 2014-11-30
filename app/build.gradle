@@ -21,5 +21,5 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile files('libs/gson/gson-2.2.4.jar')
+    compile ('com.google.code.gson:gson:2.3.1')
 }
