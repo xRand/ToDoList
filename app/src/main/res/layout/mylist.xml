@@ -25,7 +25,8 @@
             android:text="New Text"
             android:focusable="false"
             android:singleLine="true"
-            android:ellipsize="end">
+            android:ellipsize="end"
+            android:textSize="16sp">
         </TextView>
         <LinearLayout
             android:orientation="horizontal"
@@ -39,8 +40,8 @@
                 android:id="@+id/created"
                 android:gravity="right"
                 android:layout_weight="3.5"
-                android:textSize="12dp"
-                android:focusable="false"/>
+                android:focusable="false"
+                android:textSize="12sp" />
 
             <TextView
                 android:layout_width="0dp"
@@ -49,8 +50,8 @@
                 android:id="@+id/done"
                 android:gravity="right"
                 android:layout_weight="1.5"
-                android:textSize="12dp"
-                android:focusable="false"/>
+                android:focusable="false"
+                android:textSize="12sp" />
         </LinearLayout>
     </LinearLayout>
 

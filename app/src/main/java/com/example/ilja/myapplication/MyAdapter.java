@@ -78,7 +78,7 @@ public class MyAdapter extends BaseAdapter  {
         public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
             int pos = (Integer) compoundButton.getTag();
             String done = "";
-            if(b) done = (String) DateFormat.format("dd.MM.yyyy mm:ss", new Date());
+            if(b) done = (String) DateFormat.format("dd.MM.yyyy", new Date());
 
             ListItems item = new ListItems (b, list.get(pos).todo, list.get(pos).created, done);
             list.set(pos, item);

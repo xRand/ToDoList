@@ -5,5 +5,12 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="share">Share your text using:</string>
-
+    <string-array name="colors">
+        <item>RED</item>
+        <item>BLUE</item>
+        <item>YELLOW</item>
+        <item>GREEN</item>
+        <item>BLACK</item>
+        <item>WHITE</item>
+    </string-array>
 </resources>

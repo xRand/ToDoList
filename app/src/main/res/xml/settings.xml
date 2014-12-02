@@ -2,4 +2,14 @@
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <PreferenceCategory android:title="Settings" >
+        <ListPreference
+            android:title="Select a color"
+            android:entries="@array/colors"
+            android:entryValues="@array/colors"
+            android:defaultValue="YELLOW"
+            android:key="color">
+        </ListPreference>
+    </PreferenceCategory>
+
 </PreferenceScreen>

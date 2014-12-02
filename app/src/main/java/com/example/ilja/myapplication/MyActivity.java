@@ -3,7 +3,9 @@ package com.example.ilja.myapplication;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.format.DateFormat;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -28,7 +30,8 @@ public class MyActivity extends Activity {
 
     ArrayList<ListItems> list = new ArrayList<ListItems>();
     MyAdapter adapter;
-
+    SharedPreferences sp;
+    ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +39,10 @@ public class MyActivity extends Activity {
         setContentView(R.layout.activity_my);
 
         adapter = new MyAdapter(this, list);
-        final ListView listView = (ListView) findViewById(R.id.listView);
+        listView = (ListView) findViewById(R.id.listView);
         listView.setAdapter(adapter);
+
+        sp = PreferenceManager.getDefaultSharedPreferences(this);
 
         //запуск второго активити
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -108,6 +113,16 @@ public class MyActivity extends Activity {
     }
 
     @Override
+    protected void onResume() {
+        //окрашиваем тутдулист
+        String color = sp.getString("color", "error");
+        if(color=="error") color = "YELLOW";
+        listView.setBackgroundColor(Color.parseColor(color));
+
+        super.onResume();
+    }
+
+    @Override
     protected void onPause(){
         saveList();
         super.onPause();
@@ -127,6 +142,9 @@ public class MyActivity extends Activity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_settings) {
+            Intent sss = new Intent(MyActivity.this, PrefActivity.class);
+            startActivity(sss);
+
             return true;
         }
         return super.onOptionsItemSelected(item);
