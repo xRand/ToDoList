@@ -17,16 +17,31 @@ public class DetailsActivity extends MyActivity {
 
         TextView txt = (TextView) findViewById(R.id.details);
         Button del = (Button) findViewById(R.id.btnDel);
+        Button share = (Button) findViewById(R.id.btnShare);
 
-        final Intent intentA = getIntent();
-        String details = intentA.getStringExtra("details");
+        Intent intent = getIntent();
+        final String details = intent.getStringExtra("details");
+        final Integer id = intent.getIntExtra("id", 0);
         txt.setText(details);
 
+        //share intent
+        share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, details);
+                sendIntent.setType("text/plain");
+                startActivity(Intent.createChooser(sendIntent, getResources().getText(R.string.share)));
+            }
+        });
+
+        //delete item
         del.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent();
-                intent.putExtra("id", intentA.getIntExtra("id", 0));
+                intent.putExtra("id", id);
                 Toast.makeText(DetailsActivity.this, "Deleted", Toast.LENGTH_SHORT).show();
                 setResult(0, intent);
                 finish();

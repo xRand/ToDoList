@@ -1,4 +1,8 @@
 apply plugin: 'com.android.application'
+repositories {
+    jcenter()
+    maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+}
 
 android {
     compileSdkVersion 20
@@ -22,4 +26,5 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile ('com.google.code.gson:gson:2.3.1')
+
 }
