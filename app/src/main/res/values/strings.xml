@@ -12,5 +12,8 @@
         <item>GREEN</item>
         <item>BLACK</item>
         <item>WHITE</item>
+        <item>GRAY</item>
+        <item>CYAN</item>
+        <item>MAGENTA</item>
     </string-array>
 </resources>
