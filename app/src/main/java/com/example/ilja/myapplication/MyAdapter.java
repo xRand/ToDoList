@@ -10,8 +10,11 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import java.util.ArrayList;
 import java.util.Date;
+
 
 public class MyAdapter extends BaseAdapter  {
     Context context;
@@ -71,19 +74,23 @@ public class MyAdapter extends BaseAdapter  {
         return view;
     }
 
-
     //чекбоксы
     CompoundButton.OnCheckedChangeListener myCheck = new CompoundButton.OnCheckedChangeListener() {
         @Override
         public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
             int pos = (Integer) compoundButton.getTag();
+            Long id = list.get(pos).getId();
             String done = "";
             if(b) done = (String) DateFormat.format("dd.MM.yyyy", new Date());
 
-            ListItems item = new ListItems (b, list.get(pos).todo, list.get(pos).created, done);
+            ListItems item = ListItems.load(ListItems.class, id);
+            item.setBox(b);
+            item.setDone(done);
+            item.save();
             list.set(pos, item);
 
             notifyDataSetChanged();
+
         }
     };
     //удаление
@@ -91,7 +98,11 @@ public class MyAdapter extends BaseAdapter  {
         @Override
         public void onClick(View view) {
             int pos = (Integer) view.getTag();
+            Long id = list.get(pos).getId();
+            ListItems item = ListItems.load(ListItems.class, id);
+            item.delete();
             list.remove(pos);
+
             notifyDataSetChanged();
         }
     };

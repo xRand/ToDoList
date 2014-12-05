@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,15 +16,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
-
-
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
-
+import com.activeandroid.query.Select;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 public class MyActivity extends Activity {
@@ -44,72 +40,49 @@ public class MyActivity extends Activity {
 
         sp = PreferenceManager.getDefaultSharedPreferences(this);
 
-        //запуск второго активити
+        //details activity
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(MyActivity.this, DetailsActivity.class);
-                intent.putExtra("id", i);
+                Long id = list.get(i).getId();
+                intent.putExtra("id", id);
                 intent.putExtra("details", list.get(i).todo);
-                startActivityForResult(intent, 0);
+                startActivity(intent);
             }
         });
 
-        //добавление
+        //add new item
         Button btnAdd = (Button) findViewById(R.id.button);
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 EditText todo = (EditText) findViewById(R.id.editText);
                 if (!todo.getText().toString().isEmpty()) {
+
                     String created = (String) DateFormat.format("dd.MM.yyyy ", new Date());
                     ListItems item = new ListItems(false, todo.getText().toString(), created, "");
+                    item.save();
                     list.add(item);
                     todo.setText("");
                     adapter.notifyDataSetChanged();
+
                 }
                else Toast.makeText(getApplicationContext(), "Введите текст", Toast.LENGTH_SHORT).show();
             }
         });
 
-        loadList();
-
     }
 
-    //
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
-        if (data == null) return;
-        super.onActivityResult(requestCode, resultCode, data);
-        list.remove(data.getIntExtra("id", 0));
-        adapter.notifyDataSetChanged();
-    }
 
-    //сохраняем данные
-    void saveList() {
-        SharedPreferences pref = getSharedPreferences("MyPref", MODE_PRIVATE);
-        SharedPreferences.Editor ed = pref.edit();
-        Gson gson = new Gson();
-        String json = gson.toJson(list);
-        ed.putString("MyList", json);
-        ed.commit();
-
-        Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show();
-    }
-    //загружаем данные
-    void loadList() {
-        SharedPreferences pref = getSharedPreferences("MyPref", MODE_PRIVATE);
-        String json = pref.getString("MyList", "");
-        if(json.isEmpty() == false) {
-            Gson gson = new Gson();
-            JsonParser parser = new JsonParser();
-            JsonArray array = parser.parse(json).getAsJsonArray();
-            for (JsonElement element : array) {
-                ListItems it = gson.fromJson(element, ListItems.class);
-                list.add(it);
-            }
+    //load data from DB
+    void loadData() {
+        list.clear();
+        List <ListItems> data = new Select().from(ListItems.class).execute();
+        for (ListItems item : data){
+            list.add(item);
         }
+        adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -118,13 +91,12 @@ public class MyActivity extends Activity {
         String color = sp.getString("color", "error");
         if(color=="error") color = "YELLOW";
         listView.setBackgroundColor(Color.parseColor(color));
-
+        loadData();
         super.onResume();
     }
 
     @Override
     protected void onPause(){
-        saveList();
         super.onPause();
     }
 
@@ -142,8 +114,8 @@ public class MyActivity extends Activity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_settings) {
-            Intent sss = new Intent(MyActivity.this, PrefActivity.class);
-            startActivity(sss);
+            Intent pref = new Intent(MyActivity.this, PrefActivity.class);
+            startActivity(pref);
 
             return true;
         }

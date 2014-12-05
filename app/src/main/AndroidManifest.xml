@@ -3,10 +3,14 @@
     package="com.example.ilja.myapplication" >
 
     <application
+        android:name="com.activeandroid.app.Application"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
+
+        <meta-data android:name="MY_DB_NAME" android:value="MyDB.db" />
+        <meta-data android:name="MY_DB_VERSION" android:value="1" />
 
         <activity
             android:name=".MyActivity"

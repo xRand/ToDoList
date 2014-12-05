@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 
 public class DetailsActivity extends MyActivity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,7 +21,7 @@ public class DetailsActivity extends MyActivity {
 
         Intent intent = getIntent();
         final String details = intent.getStringExtra("details");
-        final Integer id = intent.getIntExtra("id", 0);
+        final Long id = intent.getLongExtra("id", 0);
         edit.setText(details);
 
 
@@ -40,10 +41,11 @@ public class DetailsActivity extends MyActivity {
         del.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent();
-                intent.putExtra("id", id);
+                ListItems item = ListItems.load(ListItems.class, id);
+                item.delete();
+                item.save();
+
                 Toast.makeText(DetailsActivity.this, "Deleted", Toast.LENGTH_SHORT).show();
-                setResult(0, intent);
                 finish();
             }
         });
