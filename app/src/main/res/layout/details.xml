@@ -1,17 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/details"
-        android:text="TESTSDSDSDS"
+        android:text="TESTSDSDSDSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSs"
         android:layout_gravity="center_horizontal"
-        android:layout_margin="@dimen/activity_horizontal_margin"
-        android:editable="true" />
+        android:layout_margin="10dp"
+        android:editable="true"
+        android:drawableRight="@android:drawable/ic_menu_camera"/>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ivPhoto"
+        android:padding="5dp"
+        android:layout_alignRight="@+id/details"
+        android:layout_alignEnd="@+id/details"
+        android:layout_below="@+id/details"
+        android:layout_alignLeft="@+id/details"
+        android:layout_alignStart="@+id/details" />
 
     <LinearLayout
         android:orientation="horizontal"
@@ -19,7 +31,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_weight="2"
-        android:layout_margin="@dimen/activity_horizontal_margin">
+        android:layout_below="@id/ivPhoto"
+        android:layout_margin="5dp"
+        android:id="@+id/lay_btn">
 
         <Button
             android:layout_width="0dp"
@@ -37,4 +51,6 @@
             android:layout_weight="1"/>
     </LinearLayout>
 
-</LinearLayout>
+
+
+</RelativeLayout>

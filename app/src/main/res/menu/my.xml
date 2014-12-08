@@ -9,5 +9,5 @@
         android:title="Share All"
         android:orderInCategory="111"
         android:showAsAction="ifRoom"
-        android:actionProviderClass="android.widget.ShareActionProvider" />
+        android:icon="@android:drawable/ic_menu_share" />
 </menu>

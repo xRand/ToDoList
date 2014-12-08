@@ -1,16 +1,18 @@
 package com.example.ilja.myapplication;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -67,9 +69,17 @@ public class MyAdapter extends BaseAdapter  {
         check.setChecked(p.box);
         check.setOnCheckedChangeListener(myCheck);
 
-        Button btnDel = (Button) view.findViewById(R.id.del);
+        ImageButton btnDel = (ImageButton) view.findViewById(R.id.del);
         btnDel.setOnClickListener(myDel);
         btnDel.setTag(position);
+
+        ImageView photo = (ImageView) view.findViewById(R.id.photo);
+
+        if(p.photo!= null) {
+            Bitmap bmp = BitmapFactory.decodeByteArray(p.photo, 0, p.photo.length);
+            photo.setImageBitmap(bmp);
+        } else photo.setImageBitmap(null);
+
 
         return view;
     }

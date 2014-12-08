@@ -4,6 +4,7 @@ import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 
+
 @Table(name = "Items")
 public class ListItems extends Model {
 
@@ -15,6 +16,16 @@ public class ListItems extends Model {
     String created;
     @Column(name = "done")
     String done;
+    @Column(name = "photo")
+    byte[] photo;
+
+    public void setPhoto(byte[] photo) {
+        this.photo = photo;
+    }
+
+    public byte[] getPhoto() {
+        return photo;
+    }
 
     public void setBox(boolean box) {
         this.box = box;
@@ -27,11 +38,13 @@ public class ListItems extends Model {
     public ListItems(){
         super();
     }
-    public ListItems(boolean box, String todo, String created, String done) {
+    public ListItems(boolean box, String todo, String created, String done, byte[] photo) {
         super();
         this.box = box;
         this.todo = todo;
         this.created = created;
         this.done = done;
+        this.photo = photo;
     }
+
 }
