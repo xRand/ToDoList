@@ -15,5 +15,3 @@ TODO list items should be stored in the SQLite DataBase
 On a Detailed screen User can edit TODO entries message
 On a Detailed screen User can take a photo and attach it to the TODO entry
 User should see attached picture in TODO list on Main Screen
-User is able to select what type of TODO entry (image or text) he want to create
-User is able to share by mail all active TODO items
