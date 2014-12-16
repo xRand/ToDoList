@@ -10,7 +10,7 @@ User is able to delete or check existing TODO entries<br/>
 User is able to see Detailed description of TODO entry on a new screen<br/>
 On a Detailed screen User can share the TODO entry to Facebook or Twitter<br/>
 User is able to access application Preference screen<br/>
-User is able to select a color of his TODO list in application Preferences that will be stored after app exit<br/>
+User is able to select a color of his TODO list in application Preferences that will be stored<br/>
 TODO list items should be stored in the SQLite DataBase<br/>
 On a Detailed screen User can edit TODO entries message<br/>
 On a Detailed screen User can take a photo and attach it to the TODO entry<br/>
