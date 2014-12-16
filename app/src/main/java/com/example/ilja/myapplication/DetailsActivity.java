@@ -48,7 +48,7 @@ public class DetailsActivity extends MyActivity {
             ivPhoto.setImageBitmap(bmp);
         }
 
-        //take photo
+        //take photo button
         edit.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -71,12 +71,6 @@ public class DetailsActivity extends MyActivity {
         share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent sendIntent = new Intent();
-//                sendIntent.setAction(Intent.ACTION_SEND);
-//                sendIntent.putExtra(Intent.EXTRA_TEXT, edit.getText().toString());
-//                sendIntent.setType("text/plain");
-//                startActivity(Intent.createChooser(sendIntent, getResources().getText(R.string.share)));
-
                 Intent share = new Intent(Intent.ACTION_SEND);
                 share.setType("image/*");
                 if(ivPhoto.getDrawable() != null) {
@@ -92,7 +86,6 @@ public class DetailsActivity extends MyActivity {
                         e.printStackTrace();
                     }
                     share.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(f));
-                  //  share.putExtra(Intent.EXTRA_STREAM, Uri.parse("file:///sdcard/temporary_file.jpg"));
                 }
                 share.putExtra(Intent.EXTRA_TEXT, edit.getText().toString());
 
@@ -113,7 +106,6 @@ public class DetailsActivity extends MyActivity {
                 item.todo = charSequence.toString();
                 item.save();
             }
-
             @Override
             public void afterTextChanged(Editable editable) {
             }
@@ -127,7 +119,7 @@ public class DetailsActivity extends MyActivity {
                 item.delete();
                 item.save();
 
-                Toast.makeText(DetailsActivity.this, "Deleted", Toast.LENGTH_SHORT).show();
+                Toast.makeText(DetailsActivity.this, getResources().getText(R.string.deleted), Toast.LENGTH_SHORT).show();
                 finish();
             }
         });

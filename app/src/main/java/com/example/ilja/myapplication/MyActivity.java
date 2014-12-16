@@ -58,7 +58,7 @@ public class MyActivity extends Activity {
             }
         });
 
-        //take a photo
+        //take a photo button
         todo.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -85,7 +85,7 @@ public class MyActivity extends Activity {
                 if (!todo.getText().toString().isEmpty()) {
                     addNew(null);
                 }
-               else Toast.makeText(getApplicationContext(), "Введите текст или сделайте фото", Toast.LENGTH_SHORT).show();
+               else Toast.makeText(getApplicationContext(), getResources().getText(R.string.empty), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -99,7 +99,7 @@ public class MyActivity extends Activity {
         }
         int array_size = activeList.size();
         String mailBody = "";
-        for (int i =0;i<array_size;i++){
+        for (int i=0;i<array_size;i++){
             mailBody += (i+1)+") "+activeList.get(i)+"\n";
         }
         Intent sendIntent = new Intent();

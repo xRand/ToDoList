@@ -29,30 +29,24 @@ public class MyAdapter extends BaseAdapter  {
         this.inflater = LayoutInflater.from(context);
     }
 
-    // кол-во элементов
     @Override
     public int getCount() {
         return list.size();
     }
 
-    // элемент по позиции
     @Override
     public Object getItem(int position) {
         return list.get(position);
     }
 
-    // id по позиции
     @Override
     public long getItemId(int position) {
         return position;
     }
 
-    // пункт списка
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        //созданное ранее View, но неиспользуемое в данный момент
         View view = convertView;
-        //Если view вдруг оказался равен null тогда мы загружаем его с помошью inflater
         if (view == null) {
             view = inflater.inflate(R.layout.mylist, parent, false);
         }
@@ -84,7 +78,7 @@ public class MyAdapter extends BaseAdapter  {
         return view;
     }
 
-    //чекбоксы
+    //checkbox
     CompoundButton.OnCheckedChangeListener myCheck = new CompoundButton.OnCheckedChangeListener() {
         @Override
         public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -103,7 +97,7 @@ public class MyAdapter extends BaseAdapter  {
 
         }
     };
-    //удаление
+    //delete item
     View.OnClickListener myDel = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
