@@ -3,7 +3,7 @@
 
 <h2>My first Android app</h2>
 
-<h2>TODO list application that has the following features:<h2>
+<h3>TODO list application that has the following features:<h3>
 <ul>
 <li>User is able to create a new TODO list entry</li>
 <li>User is able to delete or check existing TODO entries</li>
